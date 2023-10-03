@@ -4,9 +4,10 @@ import ita3.car.entity.Car;
 import ita3.car.repository.ICarRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 
-@Controller
+@Configuration
 public class DeveloperData implements ApplicationRunner {
 
 
