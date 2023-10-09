@@ -21,7 +21,7 @@ public class Member {
     private String zip;
     private boolean approved;
     private int ranking;
-    
+
     @CreationTimestamp
     private LocalDateTime created;
     @UpdateTimestamp
@@ -40,7 +40,5 @@ public class Member {
         this.city = city;
         this.zip = zip;
     }
-
-
 
 }
