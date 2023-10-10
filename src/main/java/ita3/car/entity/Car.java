@@ -1,5 +1,6 @@
 package ita3.car.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -21,6 +22,7 @@ public class Car {
     @Column(name = "max_discount")
     private int bestDiscount;
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime created;
     @UpdateTimestamp
     private LocalDateTime lastEdited;
@@ -44,6 +46,14 @@ public class Car {
     public Car() {}
 
     public Car(String brand, String model, double pricePrDay, int bestDiscount) {
+        this.brand = brand;
+        this.model = model;
+        this.pricePrDay = pricePrDay;
+        this.bestDiscount = bestDiscount;
+    }
+
+    public Car(long id, String brand, String model, double pricePrDay, int bestDiscount) {
+        this.id = id;
         this.brand = brand;
         this.model = model;
         this.pricePrDay = pricePrDay;
