@@ -2,10 +2,13 @@ package ita3.car.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Member {
@@ -26,6 +29,9 @@ public class Member {
     private LocalDateTime created;
     @UpdateTimestamp
     private LocalDateTime lastEdited;
+
+    @OneToMany(mappedBy = "member")
+    private List<Reservation> reservations = new ArrayList<>();
 
     public Member() {}
 

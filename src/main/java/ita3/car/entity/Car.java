@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Car {
@@ -26,6 +28,9 @@ public class Car {
     private LocalDateTime created;
     @UpdateTimestamp
     private LocalDateTime lastEdited;
+
+    @OneToMany(mappedBy = "car")
+    private List<Reservation> reservations = new ArrayList<>();
 
     public LocalDateTime getCreated() {
         return created;
@@ -98,5 +103,19 @@ public class Car {
 
     public void setBestDiscount(int bestDiscount) {
         this.bestDiscount = bestDiscount;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", pricePrDay=" + pricePrDay +
+                ", bestDiscount=" + bestDiscount +
+                ", created=" + created +
+                ", lastEdited=" + lastEdited +
+                ", reservations=" + reservations +
+                '}';
     }
 }
