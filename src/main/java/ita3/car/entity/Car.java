@@ -21,6 +21,7 @@ public class Car {
     @Column(name = "max_discount")
     private int bestDiscount;
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime created;
     @UpdateTimestamp
     private LocalDateTime lastEdited;
