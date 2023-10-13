@@ -7,6 +7,7 @@ import ita3.car.entity.Reservation;
 import ita3.car.repository.ICarRepository;
 import ita3.car.repository.IMemberRepository;
 import ita3.car.repository.IReservationRepository;
+import ita3.car.service.ReservationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +21,13 @@ public class ReservationController {
     IReservationRepository reservationRepository;
     ICarRepository carRepository;
     IMemberRepository memberRepository;
+    ReservationService reservationService;
 
-    public ReservationController(IReservationRepository reservationRepository, ICarRepository carRepository, IMemberRepository memberRepository) {
+    public ReservationController(IReservationRepository reservationRepository, ICarRepository carRepository, IMemberRepository memberRepository, ReservationService reservationService) {
         this.reservationRepository = reservationRepository;
         this.carRepository = carRepository;
         this.memberRepository = memberRepository;
+        this.reservationService = reservationService;
     }
 
     // READ-ALL -> get
@@ -42,18 +45,14 @@ public class ReservationController {
     // CREATE -> POST
     @PostMapping("/reservations")
     public ResponseEntity<Reservation> createReservation(@RequestBody ReservationRequest request) {
-
-        Car car = carRepository.findById(request.getCarId()).orElse(null);
-        Member member = memberRepository.findById(request.getMemberId()).orElse(null);
-
-        if (car == null || member == null) {
+        try {
+            Reservation savedReservation = reservationService.createReservation(request);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedReservation);
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } catch (IllegalStateException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null); // 409 Conflict
         }
-
-        Reservation newReservation = new Reservation(request.getRetalDate(), car, member);
-        Reservation savedReservation = reservationRepository.save(newReservation);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedReservation);
     }
 
     // UPDATE -> PUT
