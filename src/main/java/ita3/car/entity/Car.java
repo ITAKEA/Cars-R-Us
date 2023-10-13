@@ -29,9 +29,11 @@ public class Car {
     @UpdateTimestamp
     private LocalDateTime lastEdited;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "car")
     private List<Reservation> reservations = new ArrayList<>();
 
+    // Getter & Setters
     public LocalDateTime getCreated() {
         return created;
     }

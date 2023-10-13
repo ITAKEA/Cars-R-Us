@@ -54,7 +54,8 @@ public class CarController {
         if(!carRepository.existsById(id)){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        return ResponseEntity.status(200).build();
+        carRepository.deleteById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }

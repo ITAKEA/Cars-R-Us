@@ -1,9 +1,11 @@
 package ita3.car.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -18,7 +20,7 @@ public class Reservation {
     private LocalDateTime reservationDate;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
-    private LocalDateTime retalDate;
+    private LocalDate retalDate;
 
     @ManyToOne
     Car car;
@@ -29,7 +31,7 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(LocalDateTime retalDate, Car car, Member member) {
+    public Reservation(LocalDate retalDate, Car car, Member member) {
         this.retalDate = retalDate;
         this.car = car;
         this.member = member;
@@ -51,11 +53,11 @@ public class Reservation {
         this.reservationDate = reservationDate;
     }
 
-    public LocalDateTime getRetalDate() {
+    public LocalDate getRetalDate() {
         return retalDate;
     }
 
-    public void setRetalDate(LocalDateTime retalDate) {
+    public void setRetalDate(LocalDate retalDate) {
         this.retalDate = retalDate;
     }
 

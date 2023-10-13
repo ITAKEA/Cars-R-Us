@@ -12,6 +12,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -53,8 +54,8 @@ public class DeveloperData implements ApplicationRunner {
         this.member.save(new Member("user4", "pass1121", "user4@example.com", "Alice", "Johnson", "101 Maple St", "Aalborg", "4000"));
         this.member.save(new Member("user5", "pass3141", "user5@example.com", "Charlie", "Brown", "202 Oak St", "Esbjerg", "5000"));
 
-        reservationRepository.save(new Reservation(LocalDateTime.of(2023, 10, 10, 10, 10, 10), volvo, user1));
-        reservationRepository.save(new Reservation(LocalDateTime.of(2022, 11, 9, 10, 10, 10), audi, user1));
+        reservationRepository.save(new Reservation(LocalDate.of(2023, 10, 10), volvo, user1));
+        reservationRepository.save(new Reservation(LocalDate.of(2022, 11, 9), audi, user1));
     }
 
 }
